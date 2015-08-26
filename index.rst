@@ -1,4 +1,4 @@
-..  
+..
  =====================
  Statistics in Python
  =====================
@@ -12,11 +12,11 @@
 
 :authors: Gaël Varoquaux
 
-.. sidebar:: Download 
-    
+.. sidebar:: Download
+
 
     * `HTML and example files <https://github.com/GaelVaroquaux/stats_in_python_tutorial/zipball/master>`_
-    
+
     * `Source code (github) <https://github.com/GaelVaroquaux/stats_in_python_tutorial>`_
 
 **Materials for the "Statistics in Python" euroscipy 2015 tutorial.**
@@ -35,7 +35,7 @@
     e.g. image analysis, text mining, or control of a physical
     experiment, the richness of Python is an invaluable asset.
 
-.. note:: 
+.. note::
 
    To install Python, we recommend that you download `Anaconda Python
    <http://continuum.io/downloads>`_
@@ -92,7 +92,7 @@ Creating dataframes: reading data files or converting arrays
 .. sidebar:: **Separator**
 
    It is a CSV file, but the separator is ";"
- 
+
 **Reading from a CSV file:** Using the above CSV file that gives
 observations of brain size and weight and IQ (Willerman et al. 1991), the
 data are a mixture of numerical and categorical values::
@@ -126,7 +126,7 @@ of 1D 'series', eg arrays or lists. If we have 3 numpy arrays::
 
 We can expose them as a pandas dataframe::
 
-    >>> pandas.DataFrame({'t': t, 'sin': sin_t, 'cos': cos_t})  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE 
+    >>> pandas.DataFrame({'t': t, 'sin': sin_t, 'cos': cos_t})  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
              cos       sin         t
     0   0.960170  0.279415 -6.000000
     1   0.609977  0.792419 -5.368421
@@ -154,7 +154,7 @@ Manipulating data
     >>> data.shape    # 40 rows and 8 columns
     (40, 8)
 
-    >>> data.columns  # It has columns   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE 
+    >>> data.columns  # It has columns   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
     Index([u'Unnamed: 0', u'Gender', u'FSIQ', u'VIQ', u'PIQ', u'Weight', u'Height', u'MRI_Count'], dtype='object')
 
     >>> print data['Gender']  # Columns can be addressed by name   # doctest: +ELLIPSIS
@@ -181,16 +181,19 @@ Manipulating data
     Male 115.25
 
 
-`groupby_gender` is a powerfull object that exposes many
+`groupby_gender` is a powerful object that exposes many
 operations on the resulting group of dataframes::
 
     >>> groupby_gender.mean()
             Unnamed: 0   FSIQ     VIQ     PIQ      Weight     Height  MRI_Count
-    Gender                                                                     
+    Gender
     Female       19.65  111.9  109.45  110.45  137.200000  65.765000   862654.6
     Male         21.35  115.0  115.25  111.60  166.444444  71.431579   954855.4
 
-(use tab-completion on `groupby_gender` to find more).
+(use tab-completion on `groupby_gender` to find more).  Other common grouping
+functions are median, count (useful for checking to see the amount of missing
+values in different subsets) or sum.  Groupby evaluation is lazy, no work is
+done until an aggregation function is applied.
 
 |
 
@@ -212,8 +215,8 @@ operations on the resulting group of dataframes::
     * What is the average value of MRI counts expressed in log units, for
       males and females?
 
-.. note:: 
-   
+.. note::
+
    `groupby_gender.boxplot` is used for the plots above (see :ref:`this
    example <example_plot_pandas.py>`).
 
@@ -259,7 +262,7 @@ scene) to display statistics of the data in dataframes:
 Hypothesis testing: comparing two groups
 ==========================================
 
-For simple statistical tests, we will use the `stats` sub-module of 
+For simple statistical tests, we will use the `stats` sub-module of
 `scipy <http://docs.scipy.org/doc/>`_::
 
     >>> from scipy import stats
@@ -284,7 +287,7 @@ statistic, and the p-value (see the function's help)::
     (array(30.088099970...), 1.32891964...e-28)
 
 .. tip::
-   
+
     With a p-value of 10^-28 we can claim that the population mean for
     the IQ (VIQ measure) is not 0.
 
@@ -371,7 +374,7 @@ this assumption::
 Linear models, multiple factors, and analysis of variance
 ==========================================================
 
-"formulas" to speficy statistical models in Python
+"formulas" to specify statistical models in Python
 --------------------------------------------------
 
 .. image:: auto_examples/images/plot_regression_1.png
@@ -417,8 +420,8 @@ Specify an OLS model and fit it::
 
     >>> from statsmodels.formula.api import ols
     >>> model = ols("y ~ x", data).fit()
-    >>> print(model.summary())  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE 
-                                OLS Regression Results                            
+    >>> print(model.summary())  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:                      y   R-squared:                       0.804
     Model:                            OLS   Adj. R-squared:                  0.794
@@ -427,7 +430,7 @@ Specify an OLS model and fit it::
     Time:                        ...        Log-Likelihood:                -57.988
     No. Observations:                  20   AIC:                             120.0
     Df Residuals:                      18   BIC:                             122.0
-    Df Model:                           1                                         
+    Df Model:                           1
     ==============================================================================
                      coef    std err          t      P>|t|      [95.0% Conf. Int.]
     ------------------------------------------------------------------------------
@@ -480,8 +483,8 @@ Such a model can be seen in 3D as fitting a plane to a cloud of (`x`,
 
     >>> data = pandas.read_csv('examples/iris.csv')
     >>> model = ols('sepal_width ~ name + petal_length', data).fit()
-    >>> print(model.summary())  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE 
-                                OLS Regression Results                            
+    >>> print(model.summary())  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+                                OLS Regression Results
     ==============================================================================
     Dep. Variable:            sepal_width   R-squared:                       0.478
     Model:                            OLS   Adj. R-squared:                  0.468
@@ -490,7 +493,7 @@ Such a model can be seen in 3D as fitting a plane to a cloud of (`x`,
     Time:                        ...        Log-Likelihood:                -38.185
     No. Observations:                 150   AIC:                             84.37
     Df Residuals:                     146   BIC:                             96.41
-    Df Model:                           3                                       
+    Df Model:                           3
     ===============================================================================...
                              coef    std err          t     P>|t|  [95.0% Conf. Int.]
     -------------------------------------------------------------------------------...
@@ -552,4 +555,3 @@ Full examples
 
 .. toctree::
    auto_examples/index.rst
-
